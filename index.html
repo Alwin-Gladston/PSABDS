@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Password Strength & Breach Detection System</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:linear-gradient(135deg,#081b29,#0d3b66,#081b29);
+    min-height:100vh;
+    color:white;
+}
+
+/* Navbar */
+
+nav{
+
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(10px);
+    position:fixed;
+    top:0;
+}
+
+.logo{
+
+    font-size:28px;
+    font-weight:700;
+    color:#00d9ff;
+}
+
+nav ul{
+
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav ul li{
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+nav ul li:hover{
+
+    color:#00d9ff;
+}
+
+/* Hero */
+
+.hero{
+
+    padding-top:130px;
+    text-align:center;
+}
+
+.hero h1{
+
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.hero p{
+
+    color:#ddd;
+    font-size:18px;
+}
+
+/* Card */
+
+.card{
+
+    width:90%;
+    max-width:700px;
+    margin:50px auto;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:20px;
+    padding:35px;
+    backdrop-filter:blur(20px);
+}
+
+/* Input */
+
+.inputBox{
+
+    position:relative;
+}
+
+input{
+
+    width:100%;
+    padding:15px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    font-size:18px;
+    background:#fff;
+    color:#000;
+}
+
+.eye{
+
+    position:absolute;
+    right:18px;
+    top:16px;
+    cursor:pointer;
+}
+
+/* Button */
+
+button{
+
+    margin-top:20px;
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#00d9ff;
+    color:black;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+
+    background:white;
+}
+
+/* Strength */
+
+.progress{
+
+    margin-top:25px;
+    width:100%;
+    height:15px;
+    border-radius:20px;
+    background:#444;
+    overflow:hidden;
+}
+
+.bar{
+    width:0%;
+    height:100%;
+    background:#666;
+    transition:.5s;
+}
+
+.status{
+
+    margin-top:15px;
+    font-size:22px;
+    font-weight:600;
+}
+
+ul{
+
+    margin-top:20px;
+    padding-left:20px;
+}
+
+li{
+
+    margin:8px 0;
+}
+
+.breach{
+
+    margin-top:35px;
+    padding:20px;
+    border-radius:10px;
+    background:rgba(0,255,0,.1);
+    border:1px solid #00ff99;
+}
+
+.breach h3{
+
+    color:#00ff99;
+}
+
+.tips{
+
+    width:90%;
+    max-width:1000px;
+    margin:60px auto;
+}
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.tip{
+
+    background:rgba(255,255,255,.08);
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    transition:.3s;
+}
+
+.tip:hover{
+
+    transform:translateY(-8px);
+}
+
+footer{
+
+    margin-top:80px;
+    text-align:center;
+    padding:20px;
+    background:rgba(255,255,255,.05);
+}
+
+</style>
+
+</head>
+<body>
+
+<nav>
+
+<ul>
+
+<li>Home</li>
+<li>Analyzer</li>
+<li>Generator</li>
+<li>Security Tips</li>
+<li>About</li>
+
+</ul>
+
+</nav>
+
+<section class="hero">
+
+<h1>Password Strength & Breach Detection</h1>
+
+<p>Protect your digital identity by analyzing password strength and detecting compromised passwords.</p>
+
+</section>
+
+<div class="card">
+
+<h2>Check Your Password</h2>
+
+<br>
+
+<div class="inputBox">
+
+<input type="password" id="password" placeholder="Enter your password">
+
+<span class="eye" onclick="togglePassword()">👁</span>
+
+</div>
+
+<button onclick="checkStrength()">Analyze Password</button>
+
+<div class="progress">
+
+<div class="bar" id="bar"></div>
+
+</div>
+
+<div class="status" id="status">
+Enter the password to begin
+</div>
+
+<ul id="details">
+    <li id="length">⚪ Minimum 8 characters</li>
+    <li id="upper">⚪ Uppercase Letter</li>
+    <li id="lower">⚪ Lowercase Letter</li>
+    <li id="number">⚪ Number</li>
+    <li id="special">⚪ Special Character</li>
+</ul>
+
+<div class="breach">
+
+<h3>🛡 Breach Detection</h3>
+
+<br>
+
+<p id="breachText">
+
+Password has not been checked yet.
+
+</p>
+
+</div>
+
+</div>
+
+<section class="tips">
+
+<h2 style="text-align:center;margin-bottom:35px;">Security Tips</h2>
+
+<div class="cards">
+
+<div class="tip">
+<h3>🔐 Strong Passwords</h3>
+<p>Use at least 12-16 characters with symbols and numbers.</p>
+</div>
+
+<div class="tip">
+<h3>🚫 Never Reuse</h3>
+<p>Always use different passwords for every account.</p>
+</div>
+
+<div class="tip">
+<h3>📱 Enable MFA</h3>
+<p>Multi-factor authentication provides an extra security layer.</p>
+</div>
+
+<div class="tip">
+<h3>💾 Password Manager</h3>
+<p>Store passwords safely using a trusted password manager.</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+© 2026 Password Strength & Breach Detection System
+
+</footer>
+
+<script>
+
+function togglePassword(){
+
+const pass=document.getElementById("password");
+
+if(pass.type==="password")
+pass.type="text";
+else
+pass.type="password";
+
+}
+document.getElementById("password").addEventListener("keydown", function(event) {
+
+    if(event.key === "Enter"){
+
+        event.preventDefault();
+        checkStrength();
+
+    }
+
+});
+
+function checkStrength(){
+
+    let password = document.getElementById("password").value;
+
+    // Reset if password field is empty
+    if(password.trim() === ""){
+
+        document.getElementById("length").innerHTML = "⚪ Minimum 8 characters";
+        document.getElementById("upper").innerHTML = "⚪ Uppercase Letter";
+        document.getElementById("lower").innerHTML = "⚪ Lowercase Letter";
+        document.getElementById("number").innerHTML = "⚪ Number";
+        document.getElementById("special").innerHTML = "⚪ Special Character";
+
+        document.getElementById("bar").style.width = "0%";
+        document.getElementById("bar").style.background = "#666";
+
+        document.getElementById("status").innerHTML = "Enter the password to begin";
+        document.getElementById("breachText").innerHTML = "Password has not been checked yet.";
+
+        return;
+    }
+
+    let score = 0;
+
+    const hasLength = password.length >= 8;
+    const hasUpper = /[A-Z]/.test(password);
+    const hasLower = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    // Update requirement list
+    document.getElementById("length").innerHTML =
+        (hasLength ? "🟢" : "🔴") + " Minimum 8 characters";
+
+    document.getElementById("upper").innerHTML =
+        (hasUpper ? "🟢" : "🔴") + " Uppercase Letter";
+
+    document.getElementById("lower").innerHTML =
+        (hasLower ? "🟢" : "🔴") + " Lowercase Letter";
+
+    document.getElementById("number").innerHTML =
+        (hasNumber ? "🟢" : "🔴") + " Number";
+
+    document.getElementById("special").innerHTML =
+        (hasSpecial ? "🟢" : "🔴") + " Special Character";
+
+    if(hasLength) score++;
+    if(hasUpper) score++;
+    if(hasLower) score++;
+    if(hasNumber) score++;
+    if(hasSpecial) score++;
+
+    let width = (score / 5) * 100;
+
+    let bar = document.getElementById("bar");
+    bar.style.width = width + "%";
+
+    let status = document.getElementById("status");
+    let breach = document.getElementById("breachText");
+
+    if(score <= 2){
+
+        bar.style.background = "red";
+        status.innerHTML = "🔴 Weak Password";
+        breach.innerHTML = "Password should be improved before checking for breaches.";
+
+    }
+    else if(score == 3){
+
+        bar.style.background = "orange";
+        status.innerHTML = "🟠 Medium Password";
+        breach.innerHTML = "No breach check performed (backend/API required).";
+
+    }
+    else if(score == 4){
+
+        bar.style.background = "#00d9ff";
+        status.innerHTML = "🔵 Strong Password";
+        breach.innerHTML = "Ready for breach verification using backend.";
+
+    }
+    else{
+
+        bar.style.background = "#00ff66";
+        status.innerHTML = "🟢 Very Strong Password";
+        breach.innerHTML = "Excellent password! Ready for secure breach verification.";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
