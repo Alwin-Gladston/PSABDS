@@ -166,7 +166,48 @@ nav ul li a:hover{
 input[type="range"]{
 
     width:100%;
+    height:10px;
     cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+    background:#444;
+    border-radius:50px;
+    outline:none;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+
+    -webkit-appearance:none;
+    appearance:none;
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    background:#00d9ff;
+
+    border:3px solid white;
+
+    cursor:pointer;
+
+    box-shadow:0 0 12px rgba(0,217,255,.7);
+}
+
+input[type="range"]::-moz-range-thumb{
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    background:#00d9ff;
+
+    border:3px solid white;
+
+    cursor:pointer;
+
+    box-shadow:0 0 12px rgba(0,217,255,.7);
 }
 
 .options{
@@ -331,86 +372,74 @@ footer{
 
 <h2>Generate Your Password</h2>
 
-
-<!-- Generated Password -->
-
 <div class="password-box">
 
-<input
-    type="text"
-    id="generatedPassword"
-    placeholder="Your generated password"
-    readonly
->
+    <input
+        type="text"
+        id="generatedPassword"
+        placeholder="Your generated password"
+        readonly
+    >
 
-<button class="copy-btn" onclick="copyPassword()">
-Copy
-</button>
+    <button class="copy-btn" onclick="copyPassword()">
+        Copy
+    </button>
 
 </div>
 
-
-<!-- Password Length -->
+<div class="strength" id="strength">
+    Password strength: —
+</div>
 
 <div class="setting">
 
-<label>
-Password Length:
-<strong id="lengthValue">16</strong>
-</label>
+    <label>
+        Password Length:
+        <strong id="lengthValue">16</strong>
+    </label>
 
-<input
-    type="range"
-    id="length"
-    min="8"
-    max="32"
-    value="16"
-    oninput="updateLength()"
->
+    <input
+        type="range"
+        id="length"
+        min="8"
+        max="32"
+        value="16"
+        oninput="updateLength()"
+    >
 
 </div>
 
-
-<!-- Options -->
-
 <div class="options">
 
-    <button type="button" class="option active" id="uppercase"
+    <button type="button" class="option"
+        id="uppercase"
         onclick="toggleOption('uppercase')">
         Uppercase Letters
     </button>
 
-    <button type="button" class="option active" id="lowercase"
+    <button type="button" class="option"
+        id="lowercase"
         onclick="toggleOption('lowercase')">
         Lowercase Letters
     </button>
 
-    <button type="button" class="option active" id="numbers"
+    <button type="button" class="option"
+        id="numbers"
         onclick="toggleOption('numbers')">
         Numbers
     </button>
 
-    <button type="button" class="option active" id="symbols"
+    <button type="button" class="option"
+        id="symbols"
         onclick="toggleOption('symbols')">
         Symbols
     </button>
 
 </div>
 
-<!-- Generate -->
-
 <button class="generate-btn" onclick="generatePassword()">
-
-🔐 Generate Strong Password
-
+    🔐 Generate Strong Password
 </button>
-
-
-<div class="strength" id="strength">
-
-Password strength: —
-
-</div>
 
 </div>
 
