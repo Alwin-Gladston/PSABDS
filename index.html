@@ -477,22 +477,6 @@ function checkStrength(){
     const hasNumber = /[0-9]/.test(password);
     const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-    // Update requirement list
-    document.getElementById("length").innerHTML =
-        (hasLength ? "🟢" : "🔴") + " Minimum 8 characters";
-
-    document.getElementById("upper").innerHTML =
-        (hasUpper ? "🟢" : "🔴") + " Uppercase Letter";
-
-    document.getElementById("lower").innerHTML =
-        (hasLower ? "🟢" : "🔴") + " Lowercase Letter";
-
-    document.getElementById("number").innerHTML =
-        (hasNumber ? "🟢" : "🔴") + " Number";
-
-    document.getElementById("special").innerHTML =
-        (hasSpecial ? "🟢" : "🔴") + " Special Character";
-
     if(hasLength) score++;
     if(hasUpper) score++;
     if(hasLower) score++;
