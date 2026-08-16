@@ -261,6 +261,28 @@ footer{
     color: #aaa;
 }
 
+#breachButton:disabled{
+
+    background:#555;
+    color:#999;
+    cursor:not-allowed;
+    opacity:.7;
+
+}
+
+#breachButton:disabled:hover{
+
+    background:#555;
+
+}
+
+#breachButton:not(:disabled){
+
+    background:#00d9ff;
+    color:black;
+    cursor:pointer;
+
+}
 </style>
 
 </head>
@@ -275,7 +297,6 @@ footer{
 <li>Home</li>
 <li>Analyzer</li>
 <li><a href="generator.html">Generator</a></li>
-<li>Security Tips</li>
 <li>About</li>
 
 </ul>
@@ -337,13 +358,17 @@ Enter the password to begin
 <br>
 
 <p id="breachText">
-
 Password has not been checked yet.
-
 </p>
 
-</div>
+<button 
+    id="breachButton"
+    onclick="checkBreach()"
+    disabled>
+    Check for Breach
+</button>
 
+</div>
 </div>
 
 <section class="tips">
@@ -474,6 +499,16 @@ function checkStrength(){
     if(hasLower) score++;
     if(hasNumber) score++;
     if(hasSpecial) score++;
+    if(score >= 3){
+
+        breachButton.disabled = false;
+
+    }
+    else{
+
+        breachButton.disabled = true;
+
+    }
 
     let width = (score / 5) * 100;
 
@@ -482,6 +517,7 @@ function checkStrength(){
 
     let status = document.getElementById("status");
     let breach = document.getElementById("breachText");
+    let breachButton = document.getElementById("breachButton");
 
     if(score <= 2){
 
@@ -514,6 +550,38 @@ function checkStrength(){
 
 }
 
+function checkBreach(){
+
+    const password =
+        document.getElementById("password").value;
+
+    const breach =
+        document.getElementById("breachText");
+
+    if(password.trim() === ""){
+
+        breach.innerHTML =
+            "Please enter a password first.";
+
+        return;
+
+    }
+
+    breach.innerHTML =
+        "🔍 Checking password against known breach records...";
+
+    /*
+        Backend/API breach detection will be connected here.
+    */
+
+    setTimeout(function(){
+
+        breach.innerHTML =
+            "⚠️ Breach verification requires the backend/API.";
+
+    },1000);
+
+}
 </script>
 
 </body>
