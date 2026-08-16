@@ -180,25 +180,31 @@ input[type="range"]{
 .option{
 
     background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
     padding:15px;
     border-radius:10px;
-}
-
-.option label{
-
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin:0;
+    color:#aaa;
+    font-size:15px;
+    font-weight:500;
     cursor:pointer;
+    text-align:center;
+    transition:.3s;
 }
 
-.option input{
+.option:hover{
 
-    width:18px;
-    height:18px;
+    border-color:#00d9ff;
+    color:white;
 }
 
+.option.active{
+
+    background:rgba(0,255,153,.15);
+    border-color:#00ff99;
+    color:#00ff99;
+    box-shadow:0 0 12px rgba(0,255,153,.15);
+}
+    
 /* Generate Button */
 
 .generate-btn{
@@ -369,59 +375,27 @@ Password Length:
 
 <div class="options">
 
-<div class="option">
+    <button type="button" class="option active" id="uppercase"
+        onclick="toggleOption('uppercase')">
+        Uppercase Letters
+    </button>
 
-<label>
+    <button type="button" class="option active" id="lowercase"
+        onclick="toggleOption('lowercase')">
+        Lowercase Letters
+    </button>
 
-<input type="checkbox" id="uppercase" checked>
+    <button type="button" class="option active" id="numbers"
+        onclick="toggleOption('numbers')">
+        Numbers
+    </button>
 
-Uppercase Letters
-
-</label>
-
-</div>
-
-
-<div class="option">
-
-<label>
-
-<input type="checkbox" id="lowercase" checked>
-
-Lowercase Letters
-
-</label>
+    <button type="button" class="option active" id="symbols"
+        onclick="toggleOption('symbols')">
+        Symbols
+    </button>
 
 </div>
-
-
-<div class="option">
-
-<label>
-
-<input type="checkbox" id="numbers" checked>
-
-Numbers
-
-</label>
-
-</div>
-
-
-<div class="option">
-
-<label>
-
-<input type="checkbox" id="symbols" checked>
-
-Symbols
-
-</label>
-
-</div>
-
-</div>
-
 
 <!-- Generate -->
 
@@ -458,6 +432,13 @@ function updateLength(){
 
 }
 
+function toggleOption(id){
+
+const option = document.getElementById(id);
+
+option.classList.toggle("active");
+
+}
 
 function generatePassword(){
 
@@ -466,17 +447,16 @@ function generatePassword(){
     );
 
     const useUppercase =
-        document.getElementById("uppercase").checked;
+    document.getElementById("uppercase").classList.contains("active");
 
-    const useLowercase =
-        document.getElementById("lowercase").checked;
+const useLowercase =
+    document.getElementById("lowercase").classList.contains("active");
 
-    const useNumbers =
-        document.getElementById("numbers").checked;
+const useNumbers =
+    document.getElementById("numbers").classList.contains("active");
 
-    const useSymbols =
-        document.getElementById("symbols").checked;
-
+const useSymbols =
+    document.getElementById("symbols").classList.contains("active");
 
     let characters = "";
 
