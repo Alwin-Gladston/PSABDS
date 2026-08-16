@@ -475,16 +475,21 @@ function checkStrength(){
 
     let password = document.getElementById("password").value;
 
- if(password.trim() === ""){
+    if(password.trim() === ""){
 
-    document.getElementById("bar").style.width = "0%";
-    document.getElementById("bar").style.background = "#666";
+        document.getElementById("bar").style.width = "0%";
+        document.getElementById("bar").style.background = "#666";
 
-    document.getElementById("status").innerHTML = "Enter the password to begin";
-    document.getElementById("breachText").innerHTML = "Password has not been checked yet.";
+        document.getElementById("status").innerHTML =
+            "Enter the password to begin";
 
-    return;
-}
+        document.getElementById("breachText").innerHTML =
+            "Password has not been checked yet.";
+
+        document.getElementById("breachButton").disabled = true;
+
+        return;
+    }
 
     let score = 0;
 
@@ -499,57 +504,69 @@ function checkStrength(){
     if(hasLower) score++;
     if(hasNumber) score++;
     if(hasSpecial) score++;
-    if(score >= 3){
-
-        breachButton.disabled = false;
-
-    }
-    else{
-
-        breachButton.disabled = true;
-
-    }
 
     let width = (score / 5) * 100;
 
     let bar = document.getElementById("bar");
-    bar.style.width = width + "%";
-
     let status = document.getElementById("status");
     let breach = document.getElementById("breachText");
     let breachButton = document.getElementById("breachButton");
 
+    bar.style.width = width + "%";
+
+    // Enable breach checking for Medium or higher
+    if(score >= 3){
+        breachButton.disabled = false;
+    }
+    else{
+        breachButton.disabled = true;
+    }
+
     if(score <= 2){
 
         bar.style.background = "red";
+
         status.innerHTML = "🔴 Weak Password";
-        breach.innerHTML = "Password should be improved before checking for breaches.";
+
+        breach.innerHTML =
+            "Password should be improved before checking for breaches.";
 
     }
+
     else if(score == 3){
 
         bar.style.background = "orange";
+
         status.innerHTML = "🟠 Medium Password";
-        breach.innerHTML = "No breach check performed (backend/API required).";
+
+        breach.innerHTML =
+            "Ready for breach verification.";
 
     }
+
     else if(score == 4){
 
         bar.style.background = "#00d9ff";
+
         status.innerHTML = "🔵 Strong Password";
-        breach.innerHTML = "Ready for breach verification using backend.";
+
+        breach.innerHTML =
+            "Ready for breach verification.";
 
     }
+
     else{
 
         bar.style.background = "#00ff66";
+
         status.innerHTML = "🟢 Very Strong Password";
-        breach.innerHTML = "Excellent password! Ready for secure breach verification.";
+
+        breach.innerHTML =
+            "Ready for secure breach verification.";
 
     }
 
 }
-
 function checkBreach(){
 
     const password =
