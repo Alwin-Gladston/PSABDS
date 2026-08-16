@@ -322,6 +322,34 @@ footer{
 
 }
 
+.tips{
+
+    width:90%;
+    max-width:1000px;
+    margin:60px auto;
+}
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.tip{
+
+    background:rgba(255,255,255,.08);
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    transition:.3s;
+}
+
+.tip:hover{
+
+    transform:translateY(-8px);
+}
+
 </style>
 
 </head>
@@ -439,7 +467,46 @@ footer{
 
 </div>
 
+<section class="tips">
 
+    <h2 style="text-align:center;margin-bottom:35px;">
+        Security Tips
+    </h2>
+
+    <div class="cards">
+
+        <div class="tip">
+            <h3>🔐 Strong Passwords</h3>
+            <p>
+                Use at least 12-16 characters with symbols and numbers.
+            </p>
+        </div>
+
+        <div class="tip">
+            <h3>🚫 Never Reuse</h3>
+            <p>
+                Always use different passwords for every account.
+            </p>
+        </div>
+
+        <div class="tip">
+            <h3>📱 Enable MFA</h3>
+            <p>
+                Multi-factor authentication provides an extra security layer.
+            </p>
+        </div>
+
+        <div class="tip">
+            <h3>💾 Password Manager</h3>
+            <p>
+                Store passwords safely using a trusted password manager.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+	
 <footer>
 
 © 2026 Password Strength & Breach Detection System
