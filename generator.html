@@ -190,8 +190,6 @@ input[type="range"]::-webkit-slider-thumb{
     border:3px solid white;
 
     cursor:pointer;
-
-    box-shadow:0 0 12px rgba(0,217,255,.7);
 }
 
 input[type="range"]::-moz-range-thumb{
@@ -206,8 +204,6 @@ input[type="range"]::-moz-range-thumb{
     border:3px solid white;
 
     cursor:pointer;
-
-    box-shadow:0 0 12px rgba(0,217,255,.7);
 }
 
 .options{
@@ -463,9 +459,18 @@ function updateLength(){
 
 function toggleOption(id){
 
-const option = document.getElementById(id);
+    const option = document.getElementById(id);
 
-option.classList.toggle("active");
+    option.classList.toggle("active");
+
+    const passwordBox = document.getElementById("generatedPassword");
+
+    if(passwordBox.value === "Please select at least one option"){
+
+        passwordBox.value = "";
+        passwordBox.style.color = "#000";
+
+    }
 
 }
 
@@ -478,13 +483,13 @@ function generatePassword(){
     const useUppercase =
     document.getElementById("uppercase").classList.contains("active");
 
-const useLowercase =
+	const useLowercase =
     document.getElementById("lowercase").classList.contains("active");
 
-const useNumbers =
+	const useNumbers =
     document.getElementById("numbers").classList.contains("active");
 
-const useSymbols =
+	const useSymbols =
     document.getElementById("symbols").classList.contains("active");
 
     let characters = "";
@@ -514,13 +519,17 @@ const useSymbols =
     }
 
 
-    if(characters.length === 0){
+	if(characters.length === 0){
 
-        alert("Please select at least one character type.");
+    	const passwordBox = document.getElementById("generatedPassword");
 
-        return;
+    	passwordBox.value = "Please select at least one option";
 
-    }
+    	passwordBox.style.color = "#ff6b6b";
+
+		return;
+
+	}
 
 
     let password = "";
@@ -539,8 +548,10 @@ const useSymbols =
     }
 
 
-    document.getElementById("generatedPassword").value = password;
+const passwordBox = document.getElementById("generatedPassword");
 
+passwordBox.value = password;
+passwordBox.style.color = "#000";
     checkGeneratedStrength(password);
 
 }
@@ -636,9 +647,6 @@ function checkGeneratedStrength(password){
     }
 
 }
-
-
-generatePassword();
 
 </script>
 
