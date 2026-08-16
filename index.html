@@ -236,6 +236,32 @@ footer{
     background:rgba(255,255,255,.05);
 }
 
+.passwordRequirements {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.requirement {
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    background: rgba(255,255,255,0.08);
+    color: #aaa;
+    transition: 0.3s;
+}
+
+.requirement.valid {
+    background: rgba(0,255,153,0.15);
+    color: #00ff99;
+}
+
+.requirement.invalid {
+    background: rgba(255,255,255,0.08);
+    color: #aaa;
+}
+
 </style>
 
 </head>
@@ -276,6 +302,20 @@ footer{
 <input type="password" id="password" placeholder="Enter your password">
 
 <span class="eye" onclick="togglePassword()">👁</span>
+
+</div>
+
+<div class="passwordRequirements">
+
+    <span class="requirement" id="reqLower">Lowercase</span>
+
+    <span class="requirement" id="reqUpper">Uppercase</span>
+
+    <span class="requirement" id="reqNumber">Number</span>
+
+    <span class="requirement" id="reqSpecial">Symbol</span>
+
+    <span class="requirement" id="reqLength">8+ chars</span>
 
 </div>
 
@@ -373,7 +413,48 @@ document.getElementById("password").addEventListener("keydown", function(event) 
     }
 
 });
+document.getElementById("password").addEventListener("input", function() {
 
+    updatePasswordRequirements();
+
+});
+
+function updatePasswordRequirements() {
+
+    const password = document.getElementById("password").value;
+
+    const hasLower = /[a-z]/.test(password);
+    const hasUpper = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasLength = password.length >= 8;
+
+    updateRequirement("reqLower", hasLower);
+    updateRequirement("reqUpper", hasUpper);
+    updateRequirement("reqNumber", hasNumber);
+    updateRequirement("reqSpecial", hasSpecial);
+    updateRequirement("reqLength", hasLength);
+}
+
+
+function updateRequirement(id, valid) {
+
+    const element = document.getElementById(id);
+
+    if(valid) {
+
+        element.classList.add("valid");
+        element.classList.remove("invalid");
+
+    } else {
+
+        element.classList.remove("valid");
+        element.classList.add("invalid");
+
+    }
+
+}
+    
 function checkStrength(){
 
     let password = document.getElementById("password").value;
