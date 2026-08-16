@@ -451,23 +451,16 @@ function checkStrength(){
 
     let password = document.getElementById("password").value;
 
-    // Reset if password field is empty
-    if(password.trim() === ""){
+ if(password.trim() === ""){
 
-        document.getElementById("length").innerHTML = "⚪ Minimum 8 characters";
-        document.getElementById("upper").innerHTML = "⚪ Uppercase Letter";
-        document.getElementById("lower").innerHTML = "⚪ Lowercase Letter";
-        document.getElementById("number").innerHTML = "⚪ Number";
-        document.getElementById("special").innerHTML = "⚪ Special Character";
+    document.getElementById("bar").style.width = "0%";
+    document.getElementById("bar").style.background = "#666";
 
-        document.getElementById("bar").style.width = "0%";
-        document.getElementById("bar").style.background = "#666";
+    document.getElementById("status").innerHTML = "Enter the password to begin";
+    document.getElementById("breachText").innerHTML = "Password has not been checked yet.";
 
-        document.getElementById("status").innerHTML = "Enter the password to begin";
-        document.getElementById("breachText").innerHTML = "Password has not been checked yet.";
-
-        return;
-    }
+    return;
+}
 
     let score = 0;
 
